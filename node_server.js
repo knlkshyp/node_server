@@ -50,6 +50,13 @@ app.get('/', (request, response) => {
     });
 });
 
+app.get('/weather', (request, response) => {
+    response.render('weather.hbs', {
+        header: 'Weather',
+        greet: 'Current weather and temperature.'
+    });
+});
+
 app.get('/about', (request, response) => {
 
     response.render('about.hbs', {
