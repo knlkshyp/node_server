@@ -2,6 +2,7 @@ const express = require('express');
 const hbs = require('hbs');
 const fs = require('fs');
 var app = express();
+const port = process.env.PORT || 3000;
 
 // Middleware
 
@@ -57,6 +58,6 @@ app.get('/about', (request, response) => {
 });
 
 
-app.listen(3000, () => {
+app.listen(port, () => {
     console.log('Up');
 });
