@@ -1,59 +1,62 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <title>{{header}}</title>
-    </head>
-    <body>
+
+<head>
+    <meta charset="utf-8">
+    <title>{{header}}</title>
+</head>
+
+<body>
+    <script>
+    
         {{> header}}
         <p>{{greet}}</p>
         <br>
-        <p><script>`Address : ${address}`</script></p>
-        <p><script>`Temperature : ${celsius}`</script></p>
-        <p><script>`Summary : ${summary}`</script></p>
-        <br>
-        {{> footer}}
-    </body>
-</html>
+        <p>`Address : ${address}`</p>
+        <p>`Temperature : ${celsius}`</p>
+        <p>`Summary : ${summary}`</p>
+        <br> {{> footer}}
 
-<script>
 
-var args = 'bhopal';
+        var args = 'bhopal';
 
-var loc = encodeURIComponent(args);
-
-request({
-
-    url: `https://maps.googleapis.com/maps/api/geocode/json?address=${loc}`,
-    json: true
-
-}, (error, response, body) => {
-
-    if (body.status === 'OK') {
-
-        var address = body.results[0].formatted_address;
-        var latitude = body.results[0].geometry.location.lat;
-        var longitude = body.results[0].geometry.location.lng;
+        var loc = encodeURIComponent(args);
 
         request({
 
-            url: `https://api.darksky.net/forecast/2170ef3a8029c38ab1763679545f066a/${latitude},${longitude}`,
+            url: `https://maps.googleapis.com/maps/api/geocode/json?address=${loc}`,
             json: true
 
         }, (error, response, body) => {
 
-            if (response.statusCode === 200) {
+            if (body.status === 'OK') {
 
-                var fahrenheit = body.currently.temperature;
-                var celsius = (fahrenheit - 32) * 5 / 9;
-                var summary = body.currently.summary;
+                var address = body.results[0].formatted_address;
+                var latitude = body.results[0].geometry.location.lat;
+                var longitude = body.results[0].geometry.location.lng;
+
+                request({
+
+                    url: `https://api.darksky.net/forecast/2170ef3a8029c38ab1763679545f066a/${latitude},${longitude}`,
+                    json: true
+
+                }, (error, response, body) => {
+
+                    if (response.statusCode === 200) {
+
+                        var fahrenheit = body.currently.temperature;
+                        var celsius = (fahrenheit - 32) * 5 / 9;
+                        var summary = body.currently.summary;
+
+                    }
+
+                });
 
             }
 
         });
+    </script>
 
-    }
+</body>
 
-});
-
-</script>
+</html>
