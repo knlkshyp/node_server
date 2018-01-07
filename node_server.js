@@ -53,17 +53,19 @@ app.get('/', (request, response) => {
 
 
 
-app.get('/weather', (request, response) => {
+app.get('/weather', (request, response, next) => {
 
-    var data = weather.getWeather();
-    data.address = 'bhopal';
-    response.render('weather.hbs', {
-        header: 'Weather',
-        greet: 'Current weather',
-        address: `${data.address}`,
-        temperature: `${data.temperature}`,
-        summary: `${data.summary}`,
-    });
+    var args = 'bhopal';
+    var data = weather.getWeather(args);
+
+    // response.render('weather.hbs', {
+    //     header: 'Weather',
+    //     greet: 'Current weather',
+    //     address: `${data.address}`,
+    //     temperature: `${data.temperature}`,
+    //     summary: `${data.summary}`,
+    // });
+    next();
 
 });
 

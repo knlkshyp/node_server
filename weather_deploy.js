@@ -1,9 +1,6 @@
 const request = require('request');
 
-var getWeather = () => {
-
-    var args = 'bhopal';
-    var data;
+var getWeather = (args) => {
 
     var loc = encodeURIComponent(args);
 
@@ -38,13 +35,13 @@ var getWeather = () => {
                         temperature: celsius,
                         summary: summary
                     };
-
+                    
+                    return data;
                 }
 
             });
         }
     });
-    return data;
 };
 
 module.exports = {
