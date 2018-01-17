@@ -1,7 +1,9 @@
 const express = require('express');
 const hbs = require('hbs');
 const fs = require('fs');
-const weather = require('./weather_deploy.js');
+
+var weather = require('./weather_deploy.js');
+
 var app = express();
 const port = process.env.PORT || 3000;
 
@@ -49,24 +51,6 @@ app.get('/', (request, response) => {
         header: 'Home',
         greet: 'Welcome'
     });
-});
-
-
-
-app.get('/weather', (request, response, next) => {
-
-    var args = 'bhopal';
-    var data = weather.getWeather(args);
-
-    // response.render('weather.hbs', {
-    //     header: 'Weather',
-    //     greet: 'Current weather',
-    //     address: `${data.address}`,
-    //     temperature: `${data.temperature}`,
-    //     summary: `${data.summary}`,
-    // });
-    next();
-
 });
 
 app.get('/about', (request, response) => {
