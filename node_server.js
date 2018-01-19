@@ -2,7 +2,6 @@ const express = require('express');
 const hbs = require('hbs');
 const fs = require('fs');
 
-var weather = require('./weather_deploy.js');
 
 var app = express();
 const port = process.env.PORT || 3000;
@@ -32,6 +31,7 @@ app.use(express.static(__dirname + '/public'));
 
 app.set('view engine', 'hbs');
 hbs.registerPartials(__dirname + '/views/partials');
+
 hbs.registerHelper('currentYear', () => {
     return new Date().getFullYear();
 });
